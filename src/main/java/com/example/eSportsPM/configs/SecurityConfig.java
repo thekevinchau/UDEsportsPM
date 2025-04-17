@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,22 +22,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
-    public AuthenticationManager authenticationManager (AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
+
     @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-        return http
+    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/users/**").permitAll();
+                    auth.requestMatchers("/users/login").permitAll(); //everyone can log in if they want
+                    auth.requestMatchers("/logout").permitAll(); //everyone can logout if they want
                     auth.anyRequest().authenticated();
                 })
+                .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -51,6 +56,4 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter();
     }
 
-
 }
-
