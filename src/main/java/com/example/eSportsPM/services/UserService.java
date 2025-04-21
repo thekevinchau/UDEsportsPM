@@ -45,7 +45,7 @@ public class UserService {
 
     public ResponseEntity<String> login(User user){
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword()
         );
 
