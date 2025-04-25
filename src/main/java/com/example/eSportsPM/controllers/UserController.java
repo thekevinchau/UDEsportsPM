@@ -1,12 +1,11 @@
 package com.example.eSportsPM.controllers;
 
-import com.example.eSportsPM.DTOs.UserDTO;
+import com.example.eSportsPM.DTOs.UserDTOs.UserCreationDTO;
+import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,6 +19,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login (@RequestBody User user){
         return userService.login(user);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody UserCreationDTO userInfo){
+        return userService.register(userInfo);
     }
 
     @GetMapping("/{username}")

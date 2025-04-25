@@ -1,7 +1,7 @@
 package com.example.eSportsPM.services;
 
-import com.example.eSportsPM.DTOs.UserCreationDTO;
-import com.example.eSportsPM.DTOs.UserDTO;
+import com.example.eSportsPM.DTOs.UserDTOs.UserCreationDTO;
+import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;

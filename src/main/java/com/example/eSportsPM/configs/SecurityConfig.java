@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/users/login").permitAll(); //everyone can log in if they want
+                    auth.requestMatchers("/api/users/**").permitAll(); //everyone can log in if they want
                     auth.requestMatchers("/logout").permitAll(); //everyone can logout if they want
                     auth.anyRequest().authenticated();
                 })

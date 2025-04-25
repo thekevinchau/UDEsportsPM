@@ -1,4 +1,4 @@
-package com.example.eSportsPM.DTOs;
+package com.example.eSportsPM.DTOs.UserDTOs;
 
 import lombok.Data;
 
