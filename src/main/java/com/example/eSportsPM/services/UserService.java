@@ -1,5 +1,7 @@
 package com.example.eSportsPM.services;
 
+import com.example.eSportsPM.DTOs.UserCreationDTO;
+import com.example.eSportsPM.DTOs.UserDTO;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;
@@ -31,12 +33,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<String> register(User user){
-        Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
+    public ResponseEntity<String> register(UserCreationDTO userInfo){
+        Optional<User> userOptional = userRepository.findByUsername(userInfo.getUsername());
         if (userOptional.isEmpty()){
-            String currentPassword = user.getPassword();
-            user.setPassword(passwordEncoder.encode(currentPassword));
-            userRepository.save(user);
+            String currentPassword = userInfo.getPassword();
+            User savedUser = new User();
+            savedUser.setUsername(userInfo.getUsername());
+            savedUser.setPassword(passwordEncoder.encode(currentPassword));
+            savedUser.setEmail(userInfo.getEmail());
+            savedUser.setRole("ROLE_USER");
+            savedUser.setFull_name(userInfo.getFullName());
+            userRepository.save(savedUser);
             return ResponseEntity.ok("Success");
         }
         return ResponseEntity.ok("user already exists!");
@@ -54,6 +61,14 @@ public class UserService {
 
         String jwtToken = jwtUtil.generateToken((org.springframework.security.core.userdetails.User) authentication.getPrincipal());
         return ResponseEntity.ok(jwtToken);
+    }
+
+    public ResponseEntity<UserDTO> getUser(String username){
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isEmpty()){
+            throw new RuntimeException("Not found");
+        }
+        return ResponseEntity.ok(new UserDTO(userOptional.get()));
     }
 }
 
