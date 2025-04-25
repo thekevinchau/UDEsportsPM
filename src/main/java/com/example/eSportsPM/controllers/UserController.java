@@ -1,5 +1,6 @@
 package com.example.eSportsPM.controllers;
 
+import com.example.eSportsPM.DTOs.UserDTO;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -8,12 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
-
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -21,5 +20,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login (@RequestBody User user){
         return userService.login(user);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable String username){
+        return userService.getUser(username);
     }
 }
