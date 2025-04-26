@@ -1,12 +1,16 @@
-package com.example.eSportsPM.DTOs;
+package com.example.eSportsPM.DTOs.OrganizationDTOs;
 
 import com.example.eSportsPM.models.Organization;
-import com.example.eSportsPM.models.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+
+/*
+This will serve as the data being sent for the client-side to render out.
+
+ */
 public class OrganizationDTO {
     private String name;
     private String description;

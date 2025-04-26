@@ -14,6 +14,10 @@ public class UserDTO {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.fullName = user.getFull_name();
-        this.organization = user.getOrganization().getName();
+        if (user.getOrganization().getName() != null){
+            this.organization = user.getOrganization().getName();
+        }
+        this.organization = "";
+
     }
 }

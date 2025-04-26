@@ -1,0 +1,57 @@
+package com.example.eSportsPM.services;
+
+import com.example.eSportsPM.DTOs.OrganizationDTOs.OrgRegRequestDTO;
+import com.example.eSportsPM.DTOs.OrganizationDTOs.OrganizationDTO;
+import com.example.eSportsPM.DTOs.OrganizationDTOs.OrganizationRegistrationDTO;
+import com.example.eSportsPM.models.OrgRegistration;
+import com.example.eSportsPM.models.Organization;
+import com.example.eSportsPM.repositories.OrganizationRegistrationRepository;
+import com.example.eSportsPM.repositories.OrganizationRepository;
+import com.example.eSportsPM.repositories.UserRepository;
+import com.example.eSportsPM.utils.Utils;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+@Service
+public class CreateOrganizationService {
+
+    private final OrganizationRepository organizationRepository;
+    private final OrganizationRegistrationRepository organizationRegistrationRepository;
+    private final UserRepository userRepository;
+
+    public CreateOrganizationService(OrganizationRepository organizationRepository, OrganizationRegistrationRepository organizationRegistration, UserRepository userRepository) {
+        this.organizationRepository = organizationRepository;
+        this.organizationRegistrationRepository = organizationRegistration;
+        this.userRepository = userRepository;
+    }
+
+
+    /*
+    Register an organization
+    - Client submits a request to register for an organization (College)
+        - This gets sent to a table that stores the status of organizations and awaiting approval.
+        - Client submits org name, billing email/org email. As well as the user making the request (most likely
+        the org owner.)
+        - If approved, create an organization with the provided details and allow client to handle the rest of their
+            information for the organization.
+     */
+
+    public ResponseEntity<OrganizationRegistrationDTO> requestOrganizationCreation(OrgRegRequestDTO request){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        OrgRegistration registration = new OrgRegistration();
+        registration.setOrgName(request.getOrgName());
+        registration.setDescription(request.getDescription());
+        registration.setOrgEmail(request.getOrgEmail());
+        registration.setEstNumTeams(request.getEstNumTeams());
+        registration.setStatus("Pending");
+        registration.setCreatedAt(OffsetDateTime.now());
+        registration.setUser(Utils.getUser(auth.getName(), userRepository));
+        return ResponseEntity.ok(new OrganizationRegistrationDTO(organizationRegistrationRepository.save(registration)));
+    }
+
+}

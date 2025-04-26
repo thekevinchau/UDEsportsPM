@@ -1,7 +1,6 @@
 package com.example.eSportsPM.services;
 
-import com.example.eSportsPM.DTOs.OrganizationDTO;
-import com.example.eSportsPM.models.Organization;
+import com.example.eSportsPM.DTOs.OrganizationDTOs.OrganizationDTO;
 import com.example.eSportsPM.repositories.OrganizationRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
