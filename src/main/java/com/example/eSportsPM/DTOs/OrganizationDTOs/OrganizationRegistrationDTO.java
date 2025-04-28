@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Data
 
@@ -16,6 +17,7 @@ This class is intended to encapsulate all the data that the client-side program 
  */
 
 public class OrganizationRegistrationDTO {
+    private UUID id;
     private String orgName;
     private String orgEmail;
     private String requested_by;
@@ -23,6 +25,8 @@ public class OrganizationRegistrationDTO {
     private String description;
     private int estNumTeams;
     private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
+    private String updatedBy;
 
     public OrganizationRegistrationDTO(OrgRegistration registration) {
         this.orgName = registration.getOrgName();
@@ -32,5 +36,7 @@ public class OrganizationRegistrationDTO {
         this.description = registration.getDescription();
         this.estNumTeams = registration.getEstNumTeams();
         this.createdAt = OffsetDateTime.now();
+        this.updatedAt = registration.getUpdatedAt();
+        this.updatedBy = registration.getUpdatedBy().getUsername();
     }
 }

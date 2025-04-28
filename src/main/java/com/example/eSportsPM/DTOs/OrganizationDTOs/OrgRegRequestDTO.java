@@ -1,5 +1,6 @@
 package com.example.eSportsPM.DTOs.OrganizationDTOs;
 
+import com.example.eSportsPM.models.OrgRegistration;
 import lombok.Data;
 
 /*
@@ -12,4 +13,11 @@ public class OrgRegRequestDTO {
     private String orgEmail;
     private String description;
     private int estNumTeams;
+
+    public OrgRegRequestDTO(OrgRegistration registration) {
+        this.orgName = registration.getOrgName();
+        this.orgEmail = registration.getOrgEmail();
+        this.description = registration.getDescription();
+        this.estNumTeams = registration.getEstNumTeams();
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.eSportsPM.services;
+package com.example.eSportsPM.services.UserServices;
 
 import com.example.eSportsPM.DTOs.UserDTOs.UserCreationDTO;
 import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;

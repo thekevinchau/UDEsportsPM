@@ -39,4 +39,11 @@ public class OrgRegistration {
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP'")
     private OffsetDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private OffsetDateTime updatedAt;
+
+    @OneToOne
+    @JoinColumn(name = "updated_by", referencedColumnName = "id")
+    private User updatedBy;
 }

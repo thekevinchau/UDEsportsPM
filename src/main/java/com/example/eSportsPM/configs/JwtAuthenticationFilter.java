@@ -1,13 +1,12 @@
 package com.example.eSportsPM.configs;
 
 import com.example.eSportsPM.security.JwtUtil;
-import com.example.eSportsPM.services.CustomUserDetailsService;
+import com.example.eSportsPM.services.OrganizationServices.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
