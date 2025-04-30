@@ -3,6 +3,7 @@ package com.example.eSportsPM.services.OrganizationServices;
 import com.example.eSportsPM.DTOs.OrganizationDTOs.OrgRegRequestDTO;
 import com.example.eSportsPM.DTOs.OrganizationDTOs.OrganizationRegistrationDTO;
 import com.example.eSportsPM.models.OrgRegistration;
+import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.OrganizationRegistrationRepository;
 import com.example.eSportsPM.repositories.OrganizationRepository;
 import com.example.eSportsPM.repositories.UserRepository;
@@ -35,15 +36,16 @@ public class CreateOrganizationService {
      */
 
     public ResponseEntity<OrganizationRegistrationDTO> requestOrganizationCreation(OrgRegRequestDTO request){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         OrgRegistration registration = new OrgRegistration();
         registration.setOrgName(request.getOrgName());
         registration.setDescription(request.getDescription());
         registration.setOrgEmail(request.getOrgEmail());
+        registration.setBillingEmail(request.getBillingEmail());
         registration.setEstNumTeams(request.getEstNumTeams());
         registration.setStatus("Pending");
         registration.setCreatedAt(OffsetDateTime.now());
-        registration.setUser(Utils.getUser(auth.getName(), userRepository));
+        registration.setRequestedBy(Utils.getUser(userRepository));
+        registration.setUpdatedBy(null);
         return ResponseEntity.status(HttpStatus.CREATED).body(new OrganizationRegistrationDTO(organizationRegistrationRepository.save(registration)));
     }
 

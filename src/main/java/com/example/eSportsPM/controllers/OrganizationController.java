@@ -8,6 +8,7 @@ import com.example.eSportsPM.services.OrganizationServices.EditOrganizationServi
 import com.example.eSportsPM.services.OrganizationServices.GetOrganizationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,13 @@ public class OrganizationController {
     @GetMapping()
     public ResponseEntity<List<OrganizationDTO>> GetAllOrganizations(){
         return getOrganizationService.getAllOrganizations();
+    }
+
+    //I want to allow only those who are a part of their organization to retrieve all the information about their own organization only.
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<OrganizationDTO> getOrgById(@PathVariable UUID id) throws Exception {
+        return getOrganizationService.getOrganizationById(id);
     }
 
     @PostMapping("/register")

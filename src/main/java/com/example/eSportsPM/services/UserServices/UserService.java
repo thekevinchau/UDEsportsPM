@@ -42,7 +42,6 @@ public class UserService {
             savedUser.setPassword(passwordEncoder.encode(currentPassword));
             savedUser.setEmail(userInfo.getEmail());
             savedUser.setRole("ROLE_USER");
-            savedUser.setFull_name(userInfo.getFullName());
             userRepository.save(savedUser);
             return ResponseEntity.ok("Success");
         }

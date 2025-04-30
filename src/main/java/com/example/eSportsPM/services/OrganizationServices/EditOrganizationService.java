@@ -31,7 +31,7 @@ public class EditOrganizationService {
         }
         OrgRegistration registration = registrationOptional.get();
         registration.setStatus("Approved");
-        registration.setUpdatedBy(Utils.getUser(auth.getName(), userRepository));
+        registration.setUpdatedBy(Utils.getUser(userRepository));
         return ResponseEntity.ok(new OrganizationRegistrationDTO(organizationRegistrationRepository.save(registration)));
     }
 }

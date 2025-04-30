@@ -23,9 +23,12 @@ public class OrgRegistration {
     @Column(name = "org_email")
     private String orgEmail;
 
+    @Column(name = "billing_email")
+    private String billingEmail;
+
     @OneToOne
     @JoinColumn(name = "requested_by", referencedColumnName = "id")
-    private User user;
+    private User requestedBy;
 
     @Column(name = "status", columnDefinition = "VARCHAR(100) DEFAULT 'Pending'", length = 100)
     @ColumnDefault("'Pending'")
