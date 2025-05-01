@@ -2,6 +2,7 @@ package com.example.eSportsPM.services.UserServices;
 
 import com.example.eSportsPM.DTOs.UserDTOs.UserCreationDTO;
 import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
+import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;
@@ -65,7 +66,7 @@ public class UserService {
     public ResponseEntity<UserDTO> getUser(String username){
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()){
-            throw new RuntimeException("Not found");
+            throw new UserNotFound("User does not exist!");
         }
         return ResponseEntity.ok(new UserDTO(userOptional.get()));
     }

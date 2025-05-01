@@ -26,10 +26,6 @@ public class User {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
-    private UserProfile userProfile;
-
-    @OneToOne
     @JoinColumn(name = "org_id", referencedColumnName = "id")
     private Organization organization;
 

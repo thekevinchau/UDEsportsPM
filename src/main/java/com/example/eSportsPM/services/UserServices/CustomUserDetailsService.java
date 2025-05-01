@@ -1,4 +1,4 @@
-package com.example.eSportsPM.services.OrganizationServices;
+package com.example.eSportsPM.services.UserServices;
 
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor

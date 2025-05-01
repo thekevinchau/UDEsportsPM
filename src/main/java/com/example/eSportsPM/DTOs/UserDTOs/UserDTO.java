@@ -15,7 +15,9 @@ public class UserDTO {
         if (user.getOrganization() != null){
             this.organization = user.getOrganization().getName();
         }
-        this.organization = "";
+        else{
+            this.organization = "";
+        }
 
     }
 }

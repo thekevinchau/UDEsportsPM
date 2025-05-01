@@ -1,7 +1,7 @@
 package com.example.eSportsPM.configs;
 
 import com.example.eSportsPM.security.JwtUtil;
-import com.example.eSportsPM.services.OrganizationServices.CustomUserDetailsService;
+import com.example.eSportsPM.services.UserServices.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

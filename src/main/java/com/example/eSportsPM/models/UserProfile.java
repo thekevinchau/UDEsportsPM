@@ -1,7 +1,7 @@
 package com.example.eSportsPM.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,13 +14,15 @@ import java.util.UUID;
 @Table(name = "user_profile")
 public class UserProfile {
 
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Id
+    @Column(name = "user_id")
     private UUID id;
 
-    @NotNull
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
+    @OneToOne
+    @MapsId // tells JPA to use this as both FK and PK
+    @JsonIgnore
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @Column(name = "pronouns")
     private String pronouns;

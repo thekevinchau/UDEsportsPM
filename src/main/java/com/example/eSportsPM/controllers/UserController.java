@@ -3,6 +3,7 @@ package com.example.eSportsPM.controllers;
 import com.example.eSportsPM.DTOs.UserDTOs.UserCreationDTO;
 import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
 import com.example.eSportsPM.models.User;
+import com.example.eSportsPM.models.UserProfile;
 import com.example.eSportsPM.services.UserServices.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

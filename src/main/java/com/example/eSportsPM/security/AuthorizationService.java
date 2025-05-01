@@ -24,4 +24,11 @@ public class AuthorizationService {
         }
     }
 
+    public void verifyUserId (UUID userId) throws AccessDeniedException {
+        User user = Utils.getUser(userRepository);
+        if (userId != user.getId()){
+            throw new AccessDeniedException("You are not allowed to access this resource.");
+        }
+    }
+
 }
