@@ -1,11 +1,11 @@
 package com.example.eSportsPM.repositories;
 
-import com.example.eSportsPM.models.Organization;
+import com.example.eSportsPM.models.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface OrganizationRepository extends JpaRepository<Organization, UUID> {
+public interface UserProfileRepository extends JpaRepository<UserProfile, UUID> {
 }

@@ -1,13 +1,18 @@
-package com.example.eSportsPM.DTOs;
+package com.example.eSportsPM.DTOs.OrganizationDTOs;
 
 import com.example.eSportsPM.models.Organization;
-import com.example.eSportsPM.models.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
-@NoArgsConstructor
+/*
+This will serve as the data being sent for the client-side to render out.
+
+ */
 public class OrganizationDTO {
+    private UUID id;
     private String name;
     private String description;
     private String owner;
@@ -16,6 +21,7 @@ public class OrganizationDTO {
     private String timeZone;
 
     public OrganizationDTO(Organization organization) {
+        this.id = organization.getId();
         this.description = organization.getDescription();
         this.name = organization.getName();
         this.websiteUrl = organization.getWebsiteUrl();

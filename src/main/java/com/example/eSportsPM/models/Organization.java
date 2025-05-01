@@ -37,7 +37,6 @@ public class Organization {
     @Column(name = "timezone", length = 100)
     private String timezone;
 
-
     @Column(name = "plan", length = 50)
     private String plan;
 
