@@ -6,7 +6,10 @@ import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;
+import com.example.eSportsPM.services.UserProfileServices.CreateProfileService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,27 +29,32 @@ public class UserService {
     private JwtUtil jwtUtil;;
 
     private final UserRepository userRepository;
+    private final CreateProfileService createProfileService;
 
 
-    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager manager, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager manager, UserRepository userRepository, CreateProfileService createProfileService) {
         this.passwordEncoder = passwordEncoder;
         this.manager = manager;
         this.userRepository = userRepository;
+        this.createProfileService = createProfileService;
     }
 
     public ResponseEntity<String> register(UserCreationDTO userInfo){
         Optional<User> userOptional = userRepository.findByUsername(userInfo.getUsername());
         if (userOptional.isEmpty()){
             String currentPassword = userInfo.getPassword();
-            User savedUser = new User();
-            savedUser.setUsername(userInfo.getUsername());
-            savedUser.setPassword(passwordEncoder.encode(currentPassword));
-            savedUser.setEmail(userInfo.getEmail());
-            savedUser.setRole("ROLE_USER");
-            userRepository.save(savedUser);
+            User newUser = new User();
+            newUser.setUsername(userInfo.getUsername());
+            newUser.setPassword(passwordEncoder.encode(currentPassword));
+            newUser.setEmail(userInfo.getEmail());
+            newUser.setRole("ROLE_USER");
+            User savedUser = userRepository.save(newUser);
+
+            createProfileService.createProfile(savedUser.getId(), userInfo.getFullName()); //Will throw an exception if error happens here
+
             return ResponseEntity.ok("Success");
         }
-        return ResponseEntity.ok("user already exists!");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists!");
     }
 
 
