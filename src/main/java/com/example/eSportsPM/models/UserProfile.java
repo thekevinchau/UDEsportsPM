@@ -24,6 +24,9 @@ public class UserProfile {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Column(name = "full_name")
+    private String fullName;
+
     @Column(name = "pronouns")
     private String pronouns;
 
