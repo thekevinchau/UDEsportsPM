@@ -25,7 +25,7 @@ public class AuthorizationService {
     }
 
     //This function calls Utils.getUser which retrieves the currently signed in user from the database (authentication context)
-    //Now it compares the userId passed in, to the userId of the currently signed in user. If not the same, then they're not allowed to accesss another person's resource
+    //Now it compares the userId passed in, to the userId of the currently signed in user. If not the same, then they're not allowed to access another person's resource
 
     public void verifyUserId (UUID userId) throws AccessDeniedException {
         User user = Utils.getUser(userRepository);
