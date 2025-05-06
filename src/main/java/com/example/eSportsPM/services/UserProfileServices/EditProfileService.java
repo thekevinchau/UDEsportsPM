@@ -1,14 +1,20 @@
 package com.example.eSportsPM.services.UserProfileServices;
 
 import com.example.eSportsPM.DTOs.UserDTOs.UserProfileDTO;
+import com.example.eSportsPM.DTOs.UserDTOs.UserProfileEdit;
 import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.UserProfile;
 import com.example.eSportsPM.repositories.UserProfileRepository;
+import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.AuthorizationService;
+import com.example.eSportsPM.utils.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,6 +22,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditProfileService {
     private final UserProfileRepository profileRepository;
+    private final UserRepository userRepository;
     private final AuthorizationService authService;
 
     private UserProfile findProfile(UUID id) {
@@ -26,29 +33,33 @@ public class EditProfileService {
         return profileOptional.get();
     }
 
-    /*
-    public void updateProfile (UUID id, UserProfile profile) throws AccessDeniedException {
-        UserProfile userProfile = findProfile(id);
-        System.out.println(userProfile);
-        /*
-        authService.verifyUserId(userProfile.getUser().getId());
-        userProfile.setId(profile.getId());
-        userProfile.setBiography(profile.getBiography());
-        userProfile.setPronouns(profile.getPronouns());
+    private void handleTextChanges(UserProfile profile, String fullName, String bio, String pronouns){
+        //text validate and then use setters
+        profile.setFullName(fullName);
+        profile.setBiography(bio);
+        profile.setPronouns(pronouns);
+    }
 
-        if (profile.getOutOfOffice()){
-            userProfile.setOutOfOffice(true);
-            userProfile.setOutOfOfficeStart(profile.getOutOfOfficeStart());
-            userProfile.setOutOfOfficeEnd(profile.getOutOfOfficeEnd());
+    private void handleOutOfOffice(UserProfile profile, boolean isOutOfOffice, OffsetDateTime startTime, OffsetDateTime endTime){
+        if (!isOutOfOffice){
+            profile.setOutOfOffice(false);
+            profile.setOutOfOfficeStart(null);
+            profile.setOutOfOfficeEnd(null);
         }
         else {
-            userProfile.setOutOfOffice(false);
-            userProfile.setOutOfOfficeStart(null);
-            userProfile.setOutOfOfficeEnd(null);
+            profile.setOutOfOffice(true);
+            profile.setOutOfOfficeStart(startTime);
+            profile.setOutOfOfficeEnd(endTime);
         }
-        UserProfile savedProfile = profileRepository.save(userProfile);
+    }
 
-         */
-
+    public ResponseEntity<UserProfileDTO> editProfile (UserProfileEdit updatedProfile){
+        UUID currentUserId = Utils.getUser(userRepository).getId();
+        UserProfile profile = findProfile(currentUserId);
+        handleTextChanges(profile, updatedProfile.getUsername(), updatedProfile.getBiography(), updatedProfile.getPronouns());
+        handleOutOfOffice(profile, updatedProfile.getOutOfOffice(), updatedProfile.getOutOfOfficeStart(), updatedProfile.getOutOfOfficeEnd());
+        return ResponseEntity.ok(new UserProfileDTO(profileRepository.save(profile)));
+    }
 }
+
 

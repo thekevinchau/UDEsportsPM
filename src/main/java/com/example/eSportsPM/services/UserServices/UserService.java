@@ -1,13 +1,12 @@
 package com.example.eSportsPM.services.UserServices;
 
-import com.example.eSportsPM.DTOs.UserDTOs.UserCreationDTO;
+import com.example.eSportsPM.DTOs.UserDTOs.UserCreation;
 import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
 import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;
 import com.example.eSportsPM.services.UserProfileServices.CreateProfileService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,7 @@ public class UserService {
         this.createProfileService = createProfileService;
     }
 
-    public ResponseEntity<String> register(UserCreationDTO userInfo){
+    public ResponseEntity<String> register(UserCreation userInfo){
         Optional<User> userOptional = userRepository.findByUsername(userInfo.getUsername());
         if (userOptional.isEmpty()){
             String currentPassword = userInfo.getPassword();
