@@ -14,15 +14,6 @@ import java.util.UUID;
 public class AuthorizationService {
     private final UserRepository userRepository;
 
-    public void verifyOrgId (UUID orgId) throws AccessDeniedException {
-        User user = Utils.getUser(userRepository);
-        if (user.getOrganization() == null){
-            throw new AccessDeniedException("You do not have access to this resource.");
-        }
-        else if (!user.getOrganization().getId().equals(orgId)){
-            throw new AccessDeniedException("You do not have access to this resource.");
-        }
-    }
 
     //This function calls Utils.getUser which retrieves the currently signed in user from the database (authentication context)
     //Now it compares the userId passed in, to the userId of the currently signed in user. If not the same, then they're not allowed to access another person's resource

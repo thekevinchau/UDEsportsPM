@@ -15,7 +15,7 @@ public class Utils {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> userOptional = userRepository.findByEmail(auth.getName());
         if (userOptional.isEmpty()){
-            throw new UserNotFound("User not found");
+            throw new RuntimeException("User not found");
         }
         return userOptional.get();
     }
