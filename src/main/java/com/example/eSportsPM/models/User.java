@@ -26,13 +26,13 @@ public class User {
     private String password;
 
     @Column(name = "role",  nullable = false)
-    private String role;
+    private String role = "ROLE_USER";
 
     @Column(name = "status")
     private String status;
 
     @Column(name = "created_at")
-    private OffsetDateTime created_at;
+    private OffsetDateTime created_at = OffsetDateTime.now();
 
     @Column(name= "updated_at")
     private OffsetDateTime updated_at;

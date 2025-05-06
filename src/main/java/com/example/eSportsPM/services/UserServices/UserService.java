@@ -6,6 +6,7 @@ import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;
+import com.example.eSportsPM.services.UserServices.UserProfileService.CreateProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,14 @@ public class UserService {
     private JwtUtil jwtUtil;;
 
     private final UserRepository userRepository;
+    private final CreateProfileService createProfileService;
 
 
-    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager manager, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager manager, UserRepository userRepository, CreateProfileService createProfileService) {
         this.passwordEncoder = passwordEncoder;
         this.manager = manager;
         this.userRepository = userRepository;
+        this.createProfileService = createProfileService;
     }
 
     public ResponseEntity<String> register(UserCreation userInfo){
@@ -42,10 +45,12 @@ public class UserService {
             User newUser = new User();
             newUser.setUsername(userInfo.getUsername());
             newUser.setPassword(passwordEncoder.encode(currentPassword));
-            newUser.setEmail(userInfo.getEmail());
+            newUser.setEmail(userInfo.getEmail().toLowerCase());
             newUser.setRole("ROLE_USER");
             User savedUser = userRepository.save(newUser);
 
+            createProfileService.createPrivateProfile(savedUser, userInfo.getFullName());
+            createProfileService.createPublicProfile(savedUser, userInfo.getGamerTag());
             return ResponseEntity.ok("Success");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists!");

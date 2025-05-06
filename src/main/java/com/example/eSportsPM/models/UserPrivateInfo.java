@@ -15,9 +15,9 @@ public class UserPrivateInfo {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @MapsId
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @Column(name = "full_name", nullable = false, length = 255)
@@ -41,8 +41,8 @@ public class UserPrivateInfo {
     @Column(name = "emergency_contact_relation", length = 255)
     private String emergencyContactRelation;
 
-    @Column(name = "availabile")
-    private Boolean availabile = false;
+    @Column(name = "available")
+    private Boolean available = false;
 
     @Column(name = "unavailable_start")
     private OffsetDateTime unavailableStart;

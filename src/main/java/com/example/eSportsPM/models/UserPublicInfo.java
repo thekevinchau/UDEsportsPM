@@ -21,6 +21,9 @@ public class UserPublicInfo {
     @Column(name = "gamertag", nullable = false)
     private String gamerTag;
 
+    @Column(name = "expected_grad")
+    private int expectedGrad;
+
     @Column(name = "bio", columnDefinition = "TEXT")
     private String bio;
 
