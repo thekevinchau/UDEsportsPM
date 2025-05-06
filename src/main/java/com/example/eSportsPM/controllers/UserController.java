@@ -4,6 +4,7 @@ import com.example.eSportsPM.DTOs.UserDTOs.UserCreation;
 import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.services.UserServices.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserCreation userInfo){
+    public ResponseEntity<String> register(@Valid @RequestBody UserCreation userInfo){
         return userService.register(userInfo);
     }
 
