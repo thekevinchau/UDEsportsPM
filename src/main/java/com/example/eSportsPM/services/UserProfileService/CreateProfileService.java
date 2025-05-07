@@ -1,4 +1,4 @@
-package com.example.eSportsPM.services.UserServices.UserProfileService;
+package com.example.eSportsPM.services.UserProfileService;
 
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.models.UserPrivateInfo;
@@ -27,6 +27,7 @@ public class CreateProfileService {
         UserPublicInfo publicInfo = new UserPublicInfo();
         publicInfo.setUser(user);
         publicInfo.setGamerTag(gamerTag);
+        publicInfo.setPublicProfileUrl(user.getUsername());
         publicInfoRepository.save(publicInfo);
     }
 }

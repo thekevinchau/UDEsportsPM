@@ -1,4 +1,4 @@
-package com.example.eSportsPM.DTOs.UserDTOs;
+package com.example.eSportsPM.DTOs;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

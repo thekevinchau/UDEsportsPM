@@ -1,7 +1,7 @@
 package com.example.eSportsPM.controllers;
 
-import com.example.eSportsPM.DTOs.UserDTOs.UserCreation;
-import com.example.eSportsPM.DTOs.UserDTOs.UserDTO;
+import com.example.eSportsPM.DTOs.UserCreation;
+import com.example.eSportsPM.DTOs.UserDTO;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.services.UserServices.UserService;
 import jakarta.validation.Valid;
