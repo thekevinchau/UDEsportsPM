@@ -1,4 +1,4 @@
-package com.example.eSportsPM.DTOs.UserDTOs;
+package com.example.eSportsPM.DTOs;
 
 import com.example.eSportsPM.models.User;
 import lombok.Data;
