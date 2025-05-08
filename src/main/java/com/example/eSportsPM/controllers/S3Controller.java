@@ -15,15 +15,14 @@ public class S3Controller {
 
     private final S3Service s3Service;
 
-    @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file")MultipartFile file) throws IOException {
-        //Saving file temporarily on server before uploading to s3
-        String keyName = file.getOriginalFilename(); //key name for s3
-        File tempFile = File.createTempFile("temp", null);
-        file.transferTo(tempFile); //transfers the inputted file to the tempfile on the server.
+    @GetMapping("/generate-presigned-url-upload")
+    public String generatePresignedUrlUpload(@RequestParam String key){
+        return s3Service.generatePreSignedUrlUpload(key);
+    }
 
-        s3Service.uploadFile(keyName, tempFile.getAbsolutePath());
-        return "File Uploaded Successfully!";
+    @GetMapping("/generate-presigned-url-download")
+    public String generatePresignedUrlDownload(@RequestParam String key){
+        return s3Service.generatePreSignedUrlDownload(key);
     }
 
 }
