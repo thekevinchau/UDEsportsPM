@@ -1,8 +1,6 @@
-package com.example.eSportsPM.DTOs;
+package com.example.eSportsPM.DTOs.UserProfile;
 
 import lombok.Data;
-
-import java.net.URL;
 
 @Data
 public class PublicProfileEdit {
