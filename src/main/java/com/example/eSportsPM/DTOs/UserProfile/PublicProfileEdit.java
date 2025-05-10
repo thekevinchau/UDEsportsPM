@@ -9,7 +9,7 @@ public class PublicProfileEdit {
     private String gamerTag;
     private String bio;
     private String userClass;
-    private int expectedGrad;
-    private URL avatarURL;
-    private URL bannerURL;
+    private Integer expectedGrad;
+    private String avatarURL;
+    private String bannerURL;
 }

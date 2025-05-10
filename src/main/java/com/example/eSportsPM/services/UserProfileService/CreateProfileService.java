@@ -27,7 +27,7 @@ public class CreateProfileService {
         UserPublicInfo publicInfo = new UserPublicInfo();
         publicInfo.setUser(user);
         publicInfo.setGamerTag(gamerTag);
-        publicInfo.setPublicProfileUrl(user.getUsername());
+        publicInfo.setPublicProfilePath(user.getUsername());
         publicInfoRepository.save(publicInfo);
     }
 }
