@@ -22,7 +22,7 @@ public class UserPublicInfo {
     private String gamerTag;
 
     @Column(name = "expected_grad")
-    private int expectedGrad;
+    private Integer expectedGrad;
 
     @Column(name = "bio", columnDefinition = "TEXT")
     private String bio;
@@ -30,12 +30,12 @@ public class UserPublicInfo {
     @Column(name = "class")
     private String userClass;  // 'class' is a reserved keyword in Java
 
-    @Column(name = "avatar_url")
-    private String avatarUrl;
+    @Column(name = "avatar_path")
+    private String avatarPath;
 
-    @Column(name = "banner_url")
-    private String bannerUrl;
+    @Column(name = "banner_path")
+    private String bannerPath;
 
-    @Column(name = "public_profile_url")
-    private String publicProfileUrl;
+    @Column(name = "public_profile_path")
+    private String publicProfilePath;
 }
