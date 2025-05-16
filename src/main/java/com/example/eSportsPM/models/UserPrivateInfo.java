@@ -30,7 +30,7 @@ public class UserPrivateInfo {
     private BigDecimal gpa;
 
     @Column(name = "eligibility")
-    private Boolean eligibility;
+    private Boolean eligible;
 
     @Column(name = "emergency_contact_name", length = 255)
     private String emergencyContactName;

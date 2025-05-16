@@ -14,21 +14,21 @@ import java.nio.file.AccessDeniedException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/profiles")
+@RequestMapping("/api/profiles/public")
 @AllArgsConstructor
-public class UserProfileController {
+public class UserPublicProfileController {
 
     private final EditPublicProfileService editPublicProfileService;
     private final GetPublicProfileService getProfileService;
     private final S3Service S3Service;
 
-    @GetMapping("/public/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserPublicProfileDTO> getPublicProfileById(@PathVariable UUID id){
         return getProfileService.getPublicProfileById(id);
     }
 
 
-    @GetMapping("/public")
+    @GetMapping()
     public ResponseEntity<UserPublicProfileDTO> getPublicProfileByUsername(@RequestParam String username){
         return getProfileService.getPublicProfileByUsername(username);
     }
@@ -46,7 +46,7 @@ public class UserProfileController {
     }
 
 
-    @PatchMapping("/public/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<UserPublicProfileDTO> editPublicProfile(@PathVariable UUID id, @RequestBody PublicProfileEdit edits) throws AccessDeniedException {
         return editPublicProfileService.editPublicInfo(edits, id);
     }
