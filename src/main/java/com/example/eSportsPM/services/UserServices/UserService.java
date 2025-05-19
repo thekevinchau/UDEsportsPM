@@ -43,14 +43,14 @@ public class UserService {
         if (userOptional.isEmpty()){
             String currentPassword = userInfo.getPassword();
             User newUser = new User();
-            newUser.setUsername(userInfo.getUsername());
+            newUser.setUsername(userInfo.getUsername().toLowerCase());
             newUser.setPassword(passwordEncoder.encode(currentPassword));
             newUser.setEmail(userInfo.getEmail().toLowerCase());
             newUser.setRole("ROLE_USER");
             User savedUser = userRepository.save(newUser);
 
             createProfileService.createPrivateProfile(savedUser, userInfo.getFullName());
-            createProfileService.createPublicProfile(savedUser, userInfo.getGamerTag());
+            createProfileService.createPublicProfile(savedUser, "");
             return ResponseEntity.ok("Success");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists!");
