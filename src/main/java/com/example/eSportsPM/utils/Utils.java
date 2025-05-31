@@ -1,6 +1,6 @@
 package com.example.eSportsPM.utils;
 
-import com.example.eSportsPM.exceptions.UserNotFound;
+
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,6 @@ public class Utils {
     public static User getUserById(UUID id, UserRepository userRepository){
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()){
-            throw new UserNotFound("User not found");
         }
         return userOptional.get();
     }

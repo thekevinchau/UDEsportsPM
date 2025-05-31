@@ -20,6 +20,8 @@ public class CreateProfileService {
         UserPrivateInfo privateInfo = new UserPrivateInfo();
         privateInfo.setUser(user);
         privateInfo.setFullName(fullName);
+        privateInfo.setEligible(false);
+        privateInfo.setAvailable(false);
         privateInfoRepository.save(privateInfo);
     }
 

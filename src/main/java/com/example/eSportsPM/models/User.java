@@ -37,4 +37,13 @@ public class User {
     @Column(name= "updated_at")
     private OffsetDateTime updated_at;
 
+    @Column(name = "verified")
+    private Boolean verified;
+
+    @Column(name = "verification_token")
+    private UUID verificationToken;
+
+    @Column(name = "verification_expiration")
+    private OffsetDateTime verificationExpiration;
+
 }

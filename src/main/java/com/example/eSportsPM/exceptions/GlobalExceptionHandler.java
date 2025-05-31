@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({UserNotFound.class})
-    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFound exception){
+    @ExceptionHandler({NotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleUserNotFound(NotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(404, exception.getMessage()));
+    }
+
+    @ExceptionHandler({OrgExistsException.class})
+    public ResponseEntity<ErrorResponse> handleOrgExists(OrgExistsException exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, exception.getMessage()));
     }
 
 }

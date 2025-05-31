@@ -2,6 +2,7 @@ package com.example.eSportsPM.services.AwsServices;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -47,7 +48,7 @@ public class S3Service {
             - Then this will upload that image to the bucket.
 
      */
-    public String generatePreSignedUrlUpload(String objectKey){
+    public ResponseEntity<String> generatePreSignedUrlUpload(String objectKey){
         //Generate a presigner with our AWS Credentials.
         S3Presigner presigner = S3Presigner.
                 builder()
@@ -65,7 +66,7 @@ public class S3Service {
 
         //Generate the presignedURL from the request and sign it with a duration of 10 minutes.
         PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(builder -> builder.putObjectRequest(request).signatureDuration(Duration.ofMinutes(10)));
-        return presignedRequest.url().toString();
+        return ResponseEntity.ok(presignedRequest.url().toString());
     }
 
         /*
@@ -75,7 +76,7 @@ public class S3Service {
             - Then this will retrieve the image to the bucket.
 
      */
-    public String generatePreSignedUrlDownload(String objectKey){
+    public ResponseEntity<String> generatePreSignedUrlDownload(String objectKey){
         S3Presigner presigner = S3Presigner.
                 builder()
                 .region(Region.of(region))
@@ -91,7 +92,7 @@ public class S3Service {
         PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(
                 builder -> builder.getObjectRequest(request).signatureDuration(Duration.ofMinutes(10)));
 
-        return presignedRequest.url().toString();
+        return ResponseEntity.ok(presignedRequest.url().toString());
     }
 
 }
