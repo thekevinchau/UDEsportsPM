@@ -1,7 +1,6 @@
 package com.example.eSportsPM.services.UserProfileService;
 
 import com.example.eSportsPM.DTOs.UserProfile.UserPrivateProfileDTO;
-import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.User;
 import com.example.eSportsPM.models.UserPrivateInfo;
 import com.example.eSportsPM.repositories.UserPrivateInfoRepository;
@@ -32,7 +31,6 @@ public class GetPrivateProfileService {
         }
         Optional<UserPrivateInfo> profileOptional = privateInfoRepository.findById(id);
         if (profileOptional.isEmpty()){
-            throw new UserNotFound("User was not found.");
         }
         return ResponseEntity.ok(new UserPrivateProfileDTO(profileOptional.get()));
     }

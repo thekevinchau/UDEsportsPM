@@ -15,13 +15,12 @@ import java.util.UUID;
 public class OrgProfile {
 
     @Id
+    @Column(name = "org_profile_id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID orgProfileId;
+
     @Column(name = "user_id", nullable = false)
     private UUID userId;
-
-    @OneToOne //one user per org profile for uniqueness
-    @MapsId
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")

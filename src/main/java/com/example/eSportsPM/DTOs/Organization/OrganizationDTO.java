@@ -1,4 +1,4 @@
-package com.example.eSportsPM.DTOs;
+package com.example.eSportsPM.DTOs.Organization;
 
 import com.example.eSportsPM.models.Organization;
 import lombok.AllArgsConstructor;

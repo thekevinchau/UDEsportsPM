@@ -2,7 +2,6 @@ package com.example.eSportsPM.services.UserProfileService;
 
 import com.example.eSportsPM.DTOs.UserProfile.PublicProfileEdit;
 import com.example.eSportsPM.DTOs.UserProfile.UserPublicProfileDTO;
-import com.example.eSportsPM.exceptions.UserNotFound;
 import com.example.eSportsPM.models.UserPublicInfo;
 import com.example.eSportsPM.repositories.UserPublicInfoRepository;
 import com.example.eSportsPM.repositories.UserRepository;
@@ -26,7 +25,6 @@ public class EditPublicProfileService {
         UUID currentUserId = Utils.getUser(userRepository).getId();
         Optional<UserPublicInfo> publicInfoOptional = publicInfoRepository.findById(currentUserId);
         if (publicInfoOptional.isEmpty()){
-            throw new UserNotFound(("User profile does not exist"));
         }
         return publicInfoOptional.get();
     }

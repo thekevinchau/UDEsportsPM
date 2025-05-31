@@ -1,12 +1,11 @@
 package com.example.eSportsPM.services.OrgService;
 
-import com.example.eSportsPM.DTOs.OrgCreation;
-import com.example.eSportsPM.DTOs.OrganizationDTO;
+import com.example.eSportsPM.DTOs.Organization.OrgCreation;
+import com.example.eSportsPM.DTOs.Organization.OrganizationDTO;
 import com.example.eSportsPM.exceptions.OrgExistsException;
 import com.example.eSportsPM.models.Organization;
 import com.example.eSportsPM.repositories.OrgRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
