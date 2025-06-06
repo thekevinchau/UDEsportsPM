@@ -9,8 +9,10 @@ import java.util.UUID;
 
 @Data
 public class OrgProfileDTO {
+    private UUID orgProfileId;
     private UUID userId;
     private OrgPartialDTO organization;
+    private String fullName;
     private String role;
     private String pronouns;
     private String studentClass;
@@ -20,8 +22,10 @@ public class OrgProfileDTO {
     private UserDTO invitedBy;
 
     public OrgProfileDTO (OrgProfile profile){
+        this.orgProfileId = profile.getOrgProfileId();
         this.userId = profile.getUserId();
         this.organization = new OrgPartialDTO(profile.getOrganization());
+        this.fullName = profile.getFullName();
         this.role = profile.getRole();
         this.pronouns = profile.getPronouns();
         this.studentClass = profile.getStudentClass();

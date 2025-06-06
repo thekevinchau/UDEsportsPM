@@ -1,12 +1,15 @@
 package com.example.eSportsPM.services.UserServices;
 
+import com.example.eSportsPM.DTOs.Organization.OrgProfileDTO;
 import com.example.eSportsPM.DTOs.UserCreation;
 import com.example.eSportsPM.DTOs.UserDTO;
+import com.example.eSportsPM.exceptions.NotFoundException;
+import com.example.eSportsPM.models.OrgProfile;
 import com.example.eSportsPM.models.User;
+import com.example.eSportsPM.repositories.OrgProfileRepository;
 import com.example.eSportsPM.repositories.UserRepository;
 import com.example.eSportsPM.security.JwtUtil;
-import com.example.eSportsPM.services.UserProfileService.CreateProfileService;
-import org.apache.coyote.BadRequestException;
+import com.example.eSportsPM.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,19 +29,19 @@ import java.util.UUID;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager manager;
+    private final OrgProfileRepository profileRepository;
 
     @Autowired
     private JwtUtil jwtUtil;;
 
     private final UserRepository userRepository;
-    private final CreateProfileService createProfileService;
 
 
-    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager manager, UserRepository userRepository, CreateProfileService createProfileService) {
+    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager manager, OrgProfileRepository profileRepository, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.manager = manager;
+        this.profileRepository = profileRepository;
         this.userRepository = userRepository;
-        this.createProfileService = createProfileService;
     }
 
     public ResponseEntity<String> register(UserCreation userInfo){
@@ -58,10 +61,6 @@ public class UserService {
             newUser.setVerificationToken(UUID.randomUUID());
             newUser.setVerificationExpiration(OffsetDateTime.now().plusMinutes(15)); //have Amazon SES send this verification token now to the email
             User savedUser = userRepository.save(newUser);
-
-            //TODO: MOVE THIS LOGIC INTO THE GET REQUEST FOR THE VERIFICATION LINK
-            createProfileService.createPrivateProfile(savedUser, userInfo.getFullName());
-            createProfileService.createPublicProfile(savedUser, "");
             return ResponseEntity.ok("Success");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists!");
@@ -93,6 +92,18 @@ public class UserService {
         if (userOptional.isEmpty()){
         }
         return ResponseEntity.ok(new UserDTO(userOptional.get()));
+    }
+
+
+    public ResponseEntity<String> setPrimaryProfile (UUID profileId){
+        User currentUser = Utils.getUser(userRepository);
+        Optional<OrgProfile> queriedProfile = profileRepository.findById(profileId);
+        if (queriedProfile.isEmpty()){
+            throw new NotFoundException("Profile not found!");
+        }
+        currentUser.setCurrentOrgProfile(queriedProfile.get());
+        userRepository.save(currentUser);
+        return ResponseEntity.ok("Successfully saved primary profile!");
     }
 }
 

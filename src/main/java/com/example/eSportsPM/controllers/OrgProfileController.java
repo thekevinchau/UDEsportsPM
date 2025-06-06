@@ -18,7 +18,7 @@ import java.util.UUID;
 public class OrgProfileController {
     private final GetOrgProfileService GetOrgProfileService;
 
-    @GetMapping("")
+    @GetMapping("/me")
     public ResponseEntity<List<OrgProfileDTO>> getOrgProfilesByUser(){
         return GetOrgProfileService.getOrgProfilesByUser();
     }
@@ -26,5 +26,10 @@ public class OrgProfileController {
     @GetMapping("/{id}")
     public ResponseEntity<OrgProfileDTO> getOrgProfileById(@PathVariable UUID id){
         return GetOrgProfileService.getOrgProfileById(id);
+    }
+
+    @GetMapping("/primary")
+    public ResponseEntity<OrgProfileDTO> getPrimaryOrgProfile(){
+        return GetOrgProfileService.getCurrentOrgProfile();
     }
 }

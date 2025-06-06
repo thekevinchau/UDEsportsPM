@@ -13,5 +13,4 @@ import java.util.UUID;
 public interface OrgProfileRepository extends JpaRepository<OrgProfile, UUID> {
     @Query("SELECT o FROM OrgProfile o WHERE o.userId = %:currentUserId%") //will be used to fetch all Organization profiles for a particular user
     List<OrgProfile> findOrgProfilesByUser (@Param("currentUserId") UUID userId);
-
 }

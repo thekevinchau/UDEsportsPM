@@ -26,6 +26,9 @@ public class OrgProfile {
     @JoinColumn(name = "org_id")
     private Organization organization;
 
+    @Column(name = "full_name")
+    private String fullName;
+
     @Column(name = "role", nullable = false)
     private String role;
 
