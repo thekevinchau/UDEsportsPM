@@ -91,7 +91,7 @@ public class S3Service {
 
         PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(
                 builder -> builder.getObjectRequest(request).signatureDuration(Duration.ofMinutes(10)));
-
+        System.out.println("This endpoint hit");
         return ResponseEntity.ok(presignedRequest.url().toString());
     }
 
