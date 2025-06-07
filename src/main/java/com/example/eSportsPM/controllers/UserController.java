@@ -1,5 +1,6 @@
 package com.example.eSportsPM.controllers;
 
+import com.example.eSportsPM.DTOs.Organization.PrimaryProfileReq;
 import com.example.eSportsPM.DTOs.UserCreation;
 import com.example.eSportsPM.DTOs.UserDTO;
 import com.example.eSportsPM.models.User;
@@ -10,9 +11,10 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -40,6 +42,11 @@ public class UserController {
     @GetMapping("/{username}")
     public ResponseEntity<UserDTO> getUser(@PathVariable String username){
         return userService.getUser(username);
+    }
+
+    @PatchMapping("/primary-profile")
+    public ResponseEntity<String> setPrimaryProfile(@RequestBody PrimaryProfileReq req){
+        return userService.setPrimaryProfile(req.getNewId());
     }
 
 }

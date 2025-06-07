@@ -1,5 +1,6 @@
 package com.example.eSportsPM.repositories;
 
+import com.example.eSportsPM.models.OrgProfile;
 import com.example.eSportsPM.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

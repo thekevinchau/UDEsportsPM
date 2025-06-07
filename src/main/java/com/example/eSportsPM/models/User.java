@@ -46,4 +46,8 @@ public class User {
     @Column(name = "verification_expiration")
     private OffsetDateTime verificationExpiration;
 
+    @OneToOne
+    @JoinColumn(name = "current_org_profile", referencedColumnName = "org_profile_id")
+    OrgProfile currentOrgProfile;
+
 }

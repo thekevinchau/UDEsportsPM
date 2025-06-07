@@ -41,4 +41,14 @@ public class GetOrgProfileService {
         }
         return ResponseEntity.ok(new OrgProfileDTO(profile.get()));
     }
+
+
+    public ResponseEntity<OrgProfileDTO> getCurrentOrgProfile(){
+        UUID currentUserId = Utils.getUser(userRepository).getId();
+        OrgProfile currentProfile = Utils.getUser(userRepository).getCurrentOrgProfile();
+        if (!currentProfile.getUserId().equals(currentUserId)){
+            throw new RuntimeException("You are not allowed to access this resource.");
+        }
+        return ResponseEntity.ok(new OrgProfileDTO(currentProfile));
+    }
 }
